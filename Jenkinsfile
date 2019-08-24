@@ -1,6 +1,6 @@
 #!groovy
 pipeline{
-agent { label 'jenkins-node' }
+agent { label 'master' }
 environment{
 registry = "mukuldoc/mvnjenkins"
 registryUrl = 'https://registry.hub.docker.com'
