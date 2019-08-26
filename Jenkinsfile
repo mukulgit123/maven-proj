@@ -20,7 +20,7 @@ stages{
    stage('Build') { steps{
        echo '"Building Maven1"'
        sh """
-       mvn clean package
+       sudo mvn clean package
        """
    }
    }
