@@ -7,18 +7,6 @@
     <artifactId>java-sonarqube-maven</artifactId>
     <packaging>jar</packaging>
     <version>0.1.0</version>
-        <profiles>
-        <profile>
-            <id>java-maven-proj</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-		    <sonar.language>accessibility</sonar.language>
-		    <sonar.projectVersion>1.0</sonar.projectVersion>
-            </properties>
-        </profile>
-     </profiles>	
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
