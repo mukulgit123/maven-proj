@@ -17,10 +17,11 @@ stages{
    
         }
         }
-  stage('Build & Package') {
+  stage('Build & Package') { steps{
     withSonarQubeEnv('Sonarqube') {
         sh 'mvn -f ./pom.xml clean test sonar:sonar'
     }
+  }
 } 
   stage('Build') { steps{
        echo '"Building Maven1"'
