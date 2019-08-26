@@ -11,6 +11,12 @@ extravar=''
 SLACK_CHANNEL_NAME='#sonarqube'
 }
 stages{
+ stage('delete files from workspace') {
+  steps {
+    sh 'ls -l'
+    sh 'sudo rm -rf ./*'
+  }
+}
     stage('Checkout'){
         steps{
        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanCheckout']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '5ed90783-85d8-44fc-b3e2-5581a7e848a4', url: 'https://github.com/mukulgit123/maven-proj.git']]])
