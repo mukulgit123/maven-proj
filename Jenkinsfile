@@ -11,25 +11,25 @@ extravar=''
 SLACK_CHANNEL_NAME='#sonarqube'
 }
 stages{
- stage('delete files from workspace') {
-  steps {
-    sh 'ls -l'
-    sh 'sudo rm -rf ./*'
-  }
-}
     stage('Checkout'){
         steps{
        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanCheckout']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '5ed90783-85d8-44fc-b3e2-5581a7e848a4', url: 'https://github.com/mukulgit123/maven-proj.git']]])
    
         }
         }
-   stage('Build') { steps{
+  stage('Build & Package') {
+    withSonarQubeEnv('Sonarqube') {
+        sh 'mvn -f ./pom.xml clean test sonar:sonar'
+    }
+} 
+  stage('Build') { steps{
        echo '"Building Maven1"'
        sh """
        sudo mvn clean package
        """
    }
    }
+   
    stage('Copy Artifact to Docker'){
        steps{
            sh """
