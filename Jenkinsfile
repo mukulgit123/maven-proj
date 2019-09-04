@@ -19,7 +19,8 @@ stages{
         }
   stage('Build & Package') { steps{
     withSonarQubeEnv('Sonarqube') {
-        sh 'mvn -f ./pom.xml clean test sonar:sonar'
+       jacoco() 
+       sh 'mvn -f ./pom.xml clean test sonar:sonar'
     }
   }
 } 
