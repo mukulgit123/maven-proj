@@ -36,6 +36,7 @@ stages:
           SourceFolder: '$(Build.SourcesDirectory)/'
           Contents: '*.jar'
           TargetFolder: '$(Build.SourcesDirectory)/Docker/'
+      
       - task: Docker@2
         displayName: Build an image
         inputs:
