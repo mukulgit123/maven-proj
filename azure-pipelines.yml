@@ -36,11 +36,19 @@ stages:
           SourceFolder: '$(Build.SourcesDirectory)/'
           Contents: '*.jar'
           TargetFolder: '$(Build.SourcesDirectory)/Docker/'
-      
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: |
+            ls ./Docker/
+            ls ./
+            cp ./*.jar ./Docker/          
       - task: Docker@2
         displayName: Build an image
         inputs:
           command: build
           dockerfile: '$(Build.SourcesDirectory)/Docker/Dockerfile'
           tags: |
-            $(tag)          
+            $(tag)
+
+        
