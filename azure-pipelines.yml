@@ -12,11 +12,11 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
-- stage: MavenBuild
-  displayName: Maven Build
+- stage: BuildPack
+  displayName: Build and Pack
   jobs:
-    - job: BuildMaven
-      displayName: Build Maven
+    - job: BuildPack
+      displayName: Build Pack
       pool:
         vmImage: 'ubuntu-latest'
       steps:
@@ -31,32 +31,15 @@ stages:
           effectivePomSkip: false
           sonarQubeRunAnalysis: false
           
-- stage: CopyArtifact
-  displayName: Copy Artifact
-  jobs:
-    - job: CopyArtifact
-      displayName: Copy Artifact
-      pool:
-        vmImage: 'ubuntu-latest'
-      steps:
       - task: CopyFiles@2
         inputs:
           SourceFolder: '$(Build.SourcesDirectory)/'
           Contents: '*.jar'
           TargetFolder: '$(Build.SourcesDirectory)/Docker/'
-
-- stage: BuildImage
-  displayName: Build image
-  jobs:  
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    - task: Docker@2
-      displayName: Build an image
-      inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Docker/Dockerfile'
-        tags: |
-          $(tag)
+      - task: Docker@2
+        displayName: Build an image
+        inputs:
+          command: build
+          dockerfile: '$(Build.SourcesDirectory)/Docker/Dockerfile'
+          tags: |
+            $(tag)          
