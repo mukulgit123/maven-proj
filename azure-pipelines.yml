@@ -12,10 +12,10 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
-- stage: Maven Build
+- stage: Maven_Build
   displayName: Maven Build
   jobs:
-    - job: Build Maven
+    - job: Build_Maven
       displayName: Build Maven
       pool:
         vmImage: 'ubuntu-latest'
@@ -34,7 +34,7 @@ stages:
 - stage: Copy Artifact
   displayName: Copy Artifact
   jobs:
-    - job: Copy Artifact
+    - job: Copy_Artifact
       displayName: Copy Artifact
       pool:
         vmImage: 'ubuntu-latest'
