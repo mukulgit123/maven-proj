@@ -42,4 +42,12 @@ stages:
           command: build
           dockerfile: '$(Build.SourcesDirectory)/Docker/Dockerfile'
           tags: |
-            $(tag)          
+            $(tag)
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: |
+            ls ./Docker/
+            ls ./
+            cp ./*.jar ./Docker/
+        
