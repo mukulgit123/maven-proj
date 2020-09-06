@@ -12,6 +12,39 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
+- stage: Maven Build
+  displayName: Maven Build
+  jobs:
+    - job: Build Maven
+      displayName: Build Maven
+      pool:
+        vmImage: 'ubuntu-latest'
+      steps:
+      - task: Maven@3
+        inputs:
+          mavenPomFile: 'pom.xml'
+          publishJUnitResults: true
+          testResultsFiles: '**/surefire-reports/TEST-*.xml'
+          javaHomeOption: 'JDKVersion'
+          mavenVersionOption: 'Default'
+          mavenAuthenticateFeed: false
+          effectivePomSkip: false
+          sonarQubeRunAnalysis: false
+          
+- stage: Copy Artifact
+  displayName: Copy Artifact
+  jobs:
+    - job: Copy Artifact
+      displayName: Copy Artifact
+      pool:
+        vmImage: 'ubuntu-latest'
+      steps:
+      - task: CopyFiles@2
+        inputs:
+          SourceFolder: '$(Build.SourcesDirectory)/'
+          Contents: '*.jar'
+          TargetFolder: '$(Build.SourcesDirectory)/Docker/'
+
 - stage: Build
   displayName: Build image
   jobs:  
